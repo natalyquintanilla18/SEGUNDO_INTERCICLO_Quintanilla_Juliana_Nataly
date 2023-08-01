@@ -1,0 +1,153 @@
+---
+title: "EXAMEN IA_SEGUNDO_INTERCICLO"
+author: "Nataly Quintanilla"
+format: html
+editor: visual
+---
+
+### **Examen IA**
+
+### 1. ¿Cuáles son los 3 tipos de machine learning ?
+
+El machine learning o el aprendizaje automático básicamente implica identificar automáticamente patrones o tendencias "ocultos" en los datos utilizando varios algoritmos. Por tanto, es muy importante no sólo elegir el algoritmo más adecuado (y su posterior parametrización para cada problema concreto), sino también disponer de una cantidad de datos amplia y de suficiente calidad.
+
+Los tipos de implementación de **machine Learning** pueden clasificarse en tres categorías diferentes:
+
+-   Aprendizaje supervisado
+
+-   Aprendizaje no supervisado
+
+-   Aprendizaje de refuerzo según la naturaleza de los datos que recibe.
+
+**2. ¿Qué es el sobreajuste de un modelo, y porqué se puede producir ?**
+
+Es un problema que ocurre cuando el aprendizaje de maquina cuando un modelo se ajusta de forma que captura el ruido presente en dichos datos en lugar de aprender patrones generales, esto hace que el modelo tenga un excelente rendimiento en los datos de entrenamiento pero no es igual para los datos no vistos o nuevos, es decir datos de prueba.
+
+razones por las que se produce el sobreajuste:
+
+-   El conjunto de datos de entrenamiento es demasiado pequeño y no contiene suficientes muestras de datos para representar con precisión todos los valores posibles de los datos de entrada.
+
+-   Los datos de entrenamiento contienen mucha información irrelevante denominada datos ruidosos.
+
+-   El modelo tarda demasiado en entrenarse en un conjunto de datos de muestra.
+
+-   La complejidad del modelo es alta, por lo que aprende ruido en los datos de entrenamiento.
+
+**3. ¿Para evitar el sobreajuste existen diferentes técnicas, intenta explicar posibles métodos para arreglarlo ?**
+
+-   La validación cruzada es un método para dividir un conjunto de datos en subconjuntos llamados "pliegues". Luego, el modelo se entrena en varios subconjuntos y se evalúa en otros subconjuntos. Esto permite una evaluación más precisa del rendimiento del modelo y ayuda a determinar si el modelo se está sobreajustando. Una forma común de validación cruzada es la validación cruzada k-fold, donde el conjunto de datos se divide k veces y se realizan k iteraciones de entrenamiento y evaluación.
+
+-   La regularización es un método que añade una penalización a la función de pérdida del modelo para controlar la complejidad. Al agregar esta penalización, el modelo no quiere dar demasiado peso a ciertas características y en su lugar busca coeficientes más equilibrados. Las dos formas más comunes de distribución son:
+
+    Regularización L1 (Lazo): Suma la magnitud absoluta de los coeficientes como término de penalización.
+
+    Regularización L2 (Cresta): Agrega la magnitud de los coeficientes como término de penalización.
+
+-   Muchos algoritmos de aprendizaje automático tienen parámetros que controlan la complejidad del modelo, como la profundidad del árbol de decisión o la cantidad de capas ocultas en la red neuronal. Al ajustar esto se puede lograr mediante la búsqueda de hiperparámetros utilizando técnicas como la búsqueda en cuadrícula (grid search) o la optimización bayesiana.
+
+-   Se pueden utilizar técnicas de selección de características, como pruebas estadísticas o el uso de modelos que tienen importancia de características, para identificar qué características son más informativas para el modelo.
+
+-   El aumento de datos ayuda a que el modelo vea una mayor variedad de ejemplos y mejore su capacidad de generalización.
+
+-   combinar las predicciones de múltiples modelos puede reducir el riesgo de sobreajuste.
+
+**4. Supongamos que estamos investigando la cromatografía de gases acoplada a espectrometría de masas para obtener datos de la concentración de los distintos componentes de una nueva droga la cual está causando efectos negativos en la sociedad,** **¿Con qué tipo de ML se podría calibrar el equipo ?**
+Para calibrar el equipo de cromatografía de gases acoplada a espectrometría de masas se podría utilizar un modelo de aprendizaje automático supervisado, como la regresión lineal o la regresión logística.
+
+Estos se utilizan para establecer una relación entre las variables de entrada (por ejemplo, la concentración de los componentes de la droga) y las variables de salida (por ejemplo, la respuesta del equipo de cromatografía de gases acoplada a espectrometría de masas). El modelo se entrena utilizando datos de muestra y se ajusta para minimizar el error entre las predicciones del modelo y los valores reales. Una vez que se ha calibrado el modelo, se puede utilizar para predecir la concentración de los componentes de la droga en muestras desconocidas.Es importante destacar que la calibración del equipo de cromatografía de gases acoplada a espectrometría de masas es un proceso crítico para garantizar la precisión y la confianza de los resultados.
+
+La calibración debe realizarse periódicamente y debe incluir la verificación de la precisión y la linealidad del equipo, así como la identificación y corrección de cualquier desviación o error.
+
+**5. Hemos identificado los picos de interés, resulta que se basa en el LSD, entre otros componentes, cuales se han identificado mediante comparativa entre bases de datos de drogas. ¿ Con qué técnica podríamos observar los distintos tipos de componentes a través de los componentes identificados?
+Pista: tenemos demasiadas variables y no podemos relacionaralas entre sí una por una.**
+Para observar los distintos tipos de componentes a través de los componentes identificados en la cromatografía de gases acoplada a espectrometría de masas, se podría utilizar un modelo de aprendizaje automático no supervisado, como el análisis de componentes principales (PCA, por sus siglas en inglés)
+
+El PCA es una técnica estadística que se utiliza para reducir la dimensionalidad de un conjunto de datos, lo que permite visualizar las relaciones entre las variables y los patrones de agrupamiento en los datos. En el caso de la cromatografía de gases acoplada a espectrometría de masas, el PCA se podría utilizar para identificar los componentes principales de la droga y visualizar su distribución en la muestra.Es importante destacar que el análisis de datos es una parte crítica de la cromatografía de gases acoplada a espectrometría de masas y requiere de habilidades especializadas en estadística y aprendizaje automático
+
+Además, la interpretación de los resultados del análisis de datos debe realizarse con precaución y se debe tener en cuenta la complejidad de los datos y las limitaciones del equipo de análisis, para observar los distintos tipos de componentes a través de los componentes identificados en la cromatografía de gases acoplada a espectrometría de masas, se podría utilizar el análisis de componentes principales (PCA). El análisis de datos es una parte crítica de la cromatografía de gases acoplada a espectrometría de masas y requiere de habilidades especializadas en estadística y aprendizaje automático.
+
+**Con cuáles de los siguientes algoritmos podríamos clasificar los componentes de la droga, teniendo en cuenta que se tiene un banco de datos con diversas drogas y sus perfiles moleculares?: regresión logística binomial, regresión logística multinomial, regresión logística multinomial regualraizada, knn, SVM, regresión lineal múltiple, k-means, k-medianas, regresión por mínimos cuadrados parciales, regresión por componentes principales. Explica qué tipo de ML son y porque sí y porqué no.**
+Para clasificar los componentes de la droga en la cromatografía de gases acoplada a espectrometría de masas, se podrían utilizar los siguientes algoritmos:
+
+-   Regresión logística multinomial: Es un modelo de aprendizaje automático supervisado que se utiliza para clasificar muestras en más de dos categorías.
+
+-   En el caso de la cromatografía de gases acoplada a espectrometría de masas, la regresión multinomial se podría utilizar para clasificar los componentes de la logística en diferentes categorías en función de sus características espectrales y de masa.
+
+-   K-means: Es un algoritmo de aprendizaje automático no supervisado que se utiliza para agrupar muestras en diferentes categorías en función de sus características
+
+-   En el caso de la cromatografía de gases acoplada a espectrometría de masas, el algoritmo K-means se podría utilizar para agrupar los componentes de la droga en diferentes categorías en función de sus características espectrales y de masa.
+
+Se debe enfatizar que la elección del algoritmo de clasificación debe corresponder a la complejidad de los datos y el propósito específico del análisis.
+
+En la cromatografía de gases acoplada a la espectrometría de masas, la clasificación de los ingredientes de los fármacos es un proceso crítico para la identificación y cuantificación precisas de los ingredientes, y debe realizarse con cuidado y con la ayuda de expertos en análisis farmacéutico, datos y aprendizaje automático.
+
+**8. Pista: Hemos realizado un análisis de correlación de Kendall (debido a que los residuos de la regresión parcial entre cada metabolito no cumplía la normalidad de los datos)**
+Para obtener datos de la concentración de los distintos componentes de una nueva droga que está causando efectos negativos en la sociedad, se podría utilizar la cromatografía de gases acoplada a espectrometría de masas. Esta técnica analítica combina la cromatografía (de líquidos o de gases) como técnica de separación, y la espectrometría de masas como técnica de detección, identificación y cuantificación para compuestos orgánicos/organometálicos
+
+En cuanto al análisis de conexiones de Kendall, es una técnica estadística que se utiliza para evaluar la conexión entre dos variables ordinales y no se relaciona directamente con la clasificación de los componentes de la droga en la cromatografía de gases acoplada a espectrometría de masas
+**9. ¿Qué tienen que ver los residuos con la normalidad en ciertos modelos ? ¿Qué tiene que ver la función objetivo con los residuos de un modelo ?**
+
+El residual es la diferencia entre el valor observado y el valor predicho del modelo estadístico, y algunos modelos estadísticos asumen que el residual sigue una distribución normal. Si los residuos no siguen una distribución normal, esto puede indicar que el modelo no se ajusta a los datos y se deben considerar otros modelos estadísticos. Una función es una función que se utiliza para evaluar la calidad de un modelo estadístico y ajustar los parámetros del modelo, y en algunos modelos estadísticos se basa en minimizar la suma de los cuadrados de los residuos.
+
+**10. Siguiendo la misma línea, hay veces que un modelo se supone que es normal e independiente. Intenta explicar con 3 ejemplos de algoritmos que cumplan estos supuestos.**
+
+Regresión lineal simple: este modelo asume que los errores de pronóstico siguen una distribución normal y que los errores para diferentes observaciones son independientes entre sí.
+
+Esto significa que los residuos del modelo deben seguir una distribución normal y no deben tener patrones sistemáticos en su distribución. Regresión logística binomial: aunque es un modelo de variable binaria, se puede decir que satisface el supuesto de independencia porque se supone que las observaciones son independientes entre sí.
+
+1\. Sin embargo, el modelo no asume normalidad porque es una regresión logística y utiliza una función de enlace logit para modelar la probabilidad de éxito.
+
+2\. K significa: este algoritmo de aprendizaje automático no supervisado se utiliza para clasificar datos en diferentes categorías.
+
+3\. Aunque el algoritmo no asume normalidad, se puede decir que satisface el supuesto de independencia porque asigna observaciones a grupos en función de la distancia entre ellos.
+
+**11. A veces se aplican a los anteriores algoritmos unos parámetros extra, modificandolos, ayudando en ciertas violaciones a la independencia de las variables ¿Cuáles son las 3 modificaciones que se le pueden añadir a un modelo de regresión lineal múltiple con tal de evitar lo anterior ?**
+Para evitar la violación de la independencia de las variables en un modelo de regresión lineal múltiple, se pueden aplicar las siguientes modificaciones:
+
+1.  Transformación de variables: Se pueden aplicar transformaciones a las variables independientes para reducir la conexión entre ellas y mejorar la independencia de las variables
+
+    Por ejemplo, se pueden aplicar transformaciones logarítmicas o exponenciales a las variables para reducir la heterocedasticidad y mejorar la normalidad de los residuos.
+
+2.  Selección de variables: Se pueden seleccionar las variables independientes más relevantes para el modelo y eliminar aquellas que no aportan información significativa
+
+    Esto puede reducir la conexión entre las variables y mejorar la independencia de las variables.
+
+3.  Regularización: Se pueden aplicar técnicas de regularización, como la regresión ridge o la regresión LASSO, para reducir la multicolinealidad entre las variables independientes y mejorar la independencia de las variables
+
+    Estas técnicas penalizan los coeficientes de regresión grandes y reducen la complejidad del modelo.
+
+**12. ¿Qué es conjunto de entrenamiento, prueba y validación del modelo, cuál porcentaje pondrías en cada conjunto ? (Supongamos que tenemos que crear un dispositivo con nariz artificial, con alguno de los métodos que has respondido, se ha realizado en Python, y tiene que pasar 3 fases relacionadas con el anterior ).**
+
+Las pruebas, las pruebas y la verificación son conjuntos de datos utilizados en el proceso de creación y evaluación de modelos de aprendizaje automático. Entonces explica a todos:
+
+Conjunto de ejercicios: este es un conjunto de datos de los modelos de entrenamiento. Este conjunto se utiliza para ajustar los parámetros del modelo y conocer la relación entre las variables objetivo e independiente.
+
+Un modelo se ajusta a este conjunto de datos para encontrar patrones y hacer predicciones. Por lo general, el conjunto de entrenamiento recibe una porción más grande de los datos, como el 70-80% de los datos totales. Conjunto de prueba: es un conjunto de datos que se utiliza para evaluar el rendimiento de un modelo de trabajo. Este conjunto se utiliza para hacer predicciones utilizando el modelo y comparar las predicciones con los valores reales. El conjunto de pruebas proporciona una medida objetiva del rendimiento del modelo utilizando datos nunca antes vistos. Por lo general, una pequeña porción de los datos, como el 10-20% del total de datos, se asigna al conjunto de prueba.
+
+Conjunto de validación: es el conjunto de datos utilizado para ajustar los hiperparámetros del modelo y realizar la selección final del modelo. Este conjunto se utiliza para evaluar las configuraciones del modelo y seleccionar la configuración del modelo con mejor rendimiento en el conjunto de validación. El conjunto de validación proporciona una evaluación imparcial del modelo y ayuda a evitar el sobreajuste. Por lo general, una pequeña porción de los datos, como el 10-20% del total de datos, se asigna al conjunto de validación.
+
+**13. El equipo que estamos trabajando, no ha detectado bien, la señal es muy mala en algunas partes, a pesar del procesado que se hizo. Por lo tanto se decide asignar valores faltantes. ¿Qué dos métodos podríamos aplicar a este problema ?**
+
+Se pueden utilizar diferentes métodos para resolver el problema de los valores faltantes en un conjunto de datos. Las siguientes son dos formas comunes de manejar los valores faltantes.
+
+Imputación de regresión: este método implica el uso de un modelo de regresión para predecir con precisión los valores faltantes en relación con las variables existentes. Se ajusta a un modelo de regresión que utiliza variables completas como variables independientes y variables faltantes como variables dependientes. Las estimaciones del modelo se utilizan luego para completar los valores faltantes.
+
+Análisis de caso completo: este método consiste en eliminar las observaciones que tienen valores faltantes y solo se utilizan las observaciones completas para el análisis. Este enfoque puede ser efectivo si el número de observaciones completas es lo suficientemente grande y los datos faltantes no se consideran sistemáticos. Sin embargo, eliminar muchas observaciones puede resultar en una pérdida de información.
+
+**14. Intenta explicar en qué consiste la matriz de confusión en ML, en especial porqué es tan importante.**
+
+La matriz de confusión en el aprendizaje automático es una herramienta para evaluar el rendimiento de los modelos de clasificación supervisada. Esta matriz muestra el número de predicciones correctas e incorrectas realizadas por el modelo para cada clase objetivo. La matriz de confusión se organiza como una tabla cuadrada, donde las filas representan las clases reales y las columnas representan las clases predichas por el modelo. Cada celda de la matriz muestra el número de instancias que pertenecen a una clase verdadera en particular y que el modelo clasifica correcta o incorrectamente. La importancia de la matriz de confusión es que proporciona una vista detallada del rendimiento del modelo en términos de precisión, recuperación, especificidad y otras métricas de evaluación. Estas métricas le permiten comprender qué tan bien el modelo hizo predicciones y si cometió errores al clasificar los casos.
+
+Algunas métricas comunes derivadas de las matrices de confusión incluyen:
+
+-   Precisión: La proporción de instancias clasificadas correctamente en una clase determinada.
+
+-   Recordar: La proporción de instancias de una clase particular que el modelo identifica correctamente.
+
+-   Puntuación F1: combina medidas de precisión y recuperación para proporcionar una evaluación general del modelo.
+
+**15. En qué consiste el ML no supervisado, y cómo nos podría ayudar a encontrar nuevos patrones en la droga**
+
+El aprendizaje automático no supervisado es una técnica de aprendizaje automático en la que se entrena un modelo utilizando datos no etiquetados, es decir, sin una variable objetivo específica. El objetivo de este tipo de aprendizaje es encontrar patrones y estructuras ocultos en los datos y agruparlos en diferentes categorías o grupos. En caso de que se encuentren nuevos patrones de consumo de drogas, el aprendizaje automático no supervisado puede ayudar a identificar patrones de consumo y puntos en común entre diferentes tipos de drogas. Por ejemplo, las técnicas de agrupamiento se pueden usar para agrupar diferentes medicamentos según las propiedades moleculares o los efectos en el cuerpo humano. Las técnicas de reducción de dimensionalidad también se pueden utilizar para visualizar datos en espacios de baja dimensión y encontrar patrones ocultos en los datos.
+
+Vale la pena señalar que el aprendizaje automático no supervisado no requiere datos etiquetados, lo que lo hace particularmente útil cuando no se define una variable de destino. Además, puede ayudar a revelar patrones y relaciones que no son visibles a simple vista e identificar nuevas áreas de investigación y desarrollo.

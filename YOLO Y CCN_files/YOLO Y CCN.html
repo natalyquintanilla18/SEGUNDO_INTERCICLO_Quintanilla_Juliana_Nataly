@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nataly Quintanilla">
+
+<title>CNN y YOLOv</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="YOLO Y CCN_files/libs/clipboard/clipboard.min.js"></script>
+<script src="YOLO Y CCN_files/libs/quarto-html/quarto.js"></script>
+<script src="YOLO Y CCN_files/libs/quarto-html/popper.min.js"></script>
+<script src="YOLO Y CCN_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="YOLO Y CCN_files/libs/quarto-html/anchor.min.js"></script>
+<link href="YOLO Y CCN_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="YOLO Y CCN_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="YOLO Y CCN_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="YOLO Y CCN_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="YOLO Y CCN_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">CNN y YOLOv</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nataly Quintanilla </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p><strong>Redes Neuronales&nbsp;Convolucionales</strong></p>
+<p><strong>¿Qué es la loss function en Yolov8?</strong></p>
+<p>La función de pérdida en YOLOv8, una variante de la arquitectura de <strong>red neuronal convolucional</strong> “You Only Look Once” (YOLO) para la detección de objetos en imágenes, es <strong>una parte importante de</strong> la <strong>evaluación de la diferencia</strong> entre las predicciones del modelo y las etiquetas de los objetos en <strong>las imágenes.</strong></p>
+<p>Esta función de pérdida combina varias métricas, como la pérdida de coordenadas para ajustar los objetos en las ubicaciones de los cuadros delimitadores, la pérdida de confianza para estimar la certeza de detección y la pérdida de clasificación para identificar la clase de objeto detectado. Esencialmente, la función de pérdida cuantifica el desempeño del modelo en la tarea de detección de objetos y guía el proceso de aprendizaje a través de la optimización.</p>
+<p><strong>¿Qué función de pérdida se utiliza en imágenes biomédicas? (respecto CNN)</strong></p>
+<p>En el campo de la imagen biomédica y el uso de redes neuronales convolucionales (CNN), la elección de la función de pérdida depende del tipo de tarea que se esté procesando. Algunas características de pérdida comunes incluyen:</p>
+<p>Pérdida de entropía cruzada binaria: esta función se utiliza en tareas de clasificación binaria que tienen como objetivo predecir si una imagen pertenece a una clase determinada o no. Es ampliamente utilizado en aplicaciones como la segmentación de imágenes.</p>
+<p>Pérdida de entropía cruzada categórica: se utiliza para problemas de clasificación de clases múltiples en los que la red intenta asignar una imagen a una de varias clases diferentes. Esto es especialmente útil si tiene que programar varias clases.</p>
+<p>En imágenes biomédicas y el uso de redes neuronales convolucionales (CNN), la elección de la función de pérdida depende del tipo de tarea que se procesa. Algunos signos comunes de pérdida incluyen:</p>
+<p>Pérdida de entropía cruzada binaria: esta función se utiliza en tareas de clasificación binaria que tienen como objetivo predecir si una imagen pertenece a una determinada clase. Es ampliamente utilizado en aplicaciones como la segmentación de imágenes.</p>
+<p>Pérdida de entropía cruzada categórica: se utiliza para problemas de clasificación de clases múltiples en los que la red intenta asignar una imagen a una de varias clases diferentes. Esto es especialmente útil si tiene que programar varias clases.</p>
+<p>Pérdida de dados (proporción de dados): para las tareas de segmentación de imágenes, el objetivo es predecir la ubicación exacta de una estructura de imagen específica. Esta característica ayuda a medir la superposición de red esperada y real.</p>
+<p>Error cuadrático medio (MSE): esta es una opción adecuada para problemas de regresión donde las CNN trabajan en la predicción de valores en lugar de la clasificación. En resumen, cada función de pérdida se adapta a un tipo diferente de problema y es fundamental para evaluar y guiar el rendimiento del modelo en tareas específicas de imágenes biomédicas.</p>
+<p>Ventajas y desventajas de las redes neuronales convolucionales</p>
+<p>Ventajas y desventajas de las redes neuronales convolucionales:</p>
+<p>Ventaja:</p>
+<ol type="1">
+<li><p>Capacidad para aprender representaciones jerárquicas y características relevantes de los datos sin la necesidad de diseñar manualmente características específicas. Esto les permite adaptarse a diferentes tipos de datos de manera automática.</p></li>
+<li><p>Son altamente eficaces en el procesamiento de datos con estructura espacial, como imágenes y videos, debido a la operación de convolución, que les permite capturar patrones y características locales.</p></li>
+<li><p>Exhiben un rendimiento sobresaliente en una amplia gama de tareas de visión por computadora, como clasificación de imágenes, detección de objetos, segmentación y reconocimiento facial, entre otras. Su capacidad para capturar características visuales complejas los hace ideales para estas aplicaciones.</p></li>
+<li><p>Son ampliamente aplicables en diversas industrias, como medicina, automotriz, seguridad y entretenimiento, lo que ha llevado a avances significativos en estas áreas gracias a sus capacidades de procesamiento de imágenes y datos visuales.</p></li>
+</ol>
+<p>Debilidades:</p>
+<p>debilidad:</p>
+<ol type="1">
+<li><p>Requieren grandes conjuntos de datos de entrenamiento y un tiempo de computación significativo para un entrenamiento adecuado. Esto puede hacer que el proceso de entrenamiento sea costoso en términos de tiempo y recursos computacionales.</p></li>
+<li><p>Si no se manejan adecuadamente, pueden ser propensos al exceso de capacidad, especialmente cuando se usan conjuntos de datos pequeños. Esto significa que el modelo puede memorizar los datos de entrenamiento en lugar de aprender patrones generales, lo que afecta su capacidad para generalizar a nuevos datos.</p></li>
+<li><p>La interpretación de los resultados y la lógica interna del modelo puede ser difícil debido a su complejidad. Las CNN son modelos de caja negra, lo que significa que puede ser difícil entender cómo llegan a las predicciones, especialmente en redes profundas.</p></li>
+<li><p>Debido a la matriz intensiva y las operaciones computacionales involucradas, algunos modelos complejos pueden requerir hardware especializado para entrenamiento y ejecución. Esto puede limitar su disponibilidad y uso en entornos con recursos limitados.</p></li>
+</ol>
+<p><strong>¿Por qué se puede utilizar en el dominio tiempo ?</strong></p>
+<p>Las redes neuronales convolucionales (CNN) se desarrollaron originalmente para tareas de procesamiento de imágenes, lo que llevó a su uso principal en el dominio espacial. Sin embargo, los estudios han demostrado que las CNN también se pueden adaptar para manejar datos secuenciales en el dominio del tiempo, como series temporales. El uso de CNN en el dominio del tiempo requiere algunos cambios en su arquitectura para aprovechar la estructura secuencial de los datos. Algunas formas de usar CNN en el dominio del tiempo son:</p>
+<p>Use capas de convolución 1D: en lugar de usar convoluciones 2D aplicadas a imágenes, use convoluciones 1D en la dimensión de tiempo de los datos. Esto permite que la CNN capture las características relevantes a lo largo del tiempo.</p>
+<p>Aplique circunvoluciones 2D a datos transformados: los datos de tiempo se pueden transformar en representaciones de imágenes (como imágenes de espectrograma) para usar circunvoluciones 2D tradicionales. De esta forma, las CNN pueden utilizar su capacidad para extraer características espaciales para analizar información temporal.</p>
+<p>Combinación de redes neuronales recurrentes (RNN) con CNN: las arquitecturas de CNN se pueden integrar con capas recurrentes como la memoria a corto plazo (LSTM) o RNN para resolver tareas secuenciales más complejas. Las RNN están diseñadas específicamente para procesar flujos de datos y, en algunos casos, pueden ser más adecuadas que las CNN puras.</p>
+<p>Es importante enfatizar que, si bien las CNN se pueden usar en el dominio del tiempo, existen otros métodos (como las redes RNN o LSTM) que están diseñados específicamente para procesar datos de secuencia y pueden ser más adecuados para ciertos escenarios. La elección entre estas arquitecturas dependerá de las especificidades de la tarea y los requisitos del problema a resolver.</p>
+<p><strong>¿Por qué un&nbsp;SVM&nbsp;no puede utilizarse en el dominio tiempo, o se puede ?</strong></p>
+<p>Support Vector Machine (SVM) es un algoritmo de aprendizaje supervisado que se utiliza principalmente para problemas de clasificación y regresión. Aunque las SVM son muy eficientes en el dominio espacial y han demostrado ser exitosas en varias aplicaciones, como la clasificación de imágenes, no son adecuadas para el dominio temporal. La razón principal es que las SVM están diseñadas para trabajar con datos en forma de vector, lo que dificulta su aplicación directa a datos secuenciales o temporales. Cuando se trabaja con dichos datos, se deben convertir a la representación vectorial apropiada. Aunque es posible usar funciones manuales para transformar datos temporales en vectores, este enfoque puede no ser el más eficiente, ya que la estructura secuencial de los datos puede perderse en el proceso.</p>
+<p>Se recomienda considerar enfoques como Redes neuronales recurrentes (RNN), LSTM (Memoria a largo plazo) o Redes neuronales convolucionales (CNN) para datos secuenciales en lugar de utilizar SVM en el dominio del tiempo. Estas arquitecturas están diseñadas específicamente para manejar la estructura secuencial de los datos y almacenar información temporal relevante para analizar y predecir secuencias de datos.</p>
+<p>Referecencias</p>
+<p>Terven, J., &amp; Cordova-Esparza, D. (2023). A comprehensive review of YOLO: From YOLOv1 to YOLOv8 and beyond.&nbsp;arXiv preprint arXiv:2304.00501.</p>
+<p>Yamashita, R., Nishio, M., Do, R. K. G., &amp; Togashi, K. (2018). Convolutional neural networks: an overview and application in radiology.&nbsp;Insights into imaging,&nbsp;9, 611-629.</p>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
