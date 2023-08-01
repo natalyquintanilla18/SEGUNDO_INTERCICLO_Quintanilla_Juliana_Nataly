@@ -1,0 +1,242 @@
+---
+title: "ANOVA"
+author: "Nataly Quintanilla"
+format: html
+editor: visual
+---
+
+# **ANOVA**
+
+La prueba ANOVA (Análisis de Varianza) unidireccional es una técnica estadística utilizada para comparar las medias de tres o más grupos que se supone que provienen de poblaciones con distribuciones normales y varianzas iguales. Es un método de inferencia que se utiliza para determinar si hay diferencias significativas entre las medias de los grupos en una única variable dependiente.
+
+La prueba ANOVA unidireccional se denomina "unidireccional" porque solo examina una variable independiente (factor) que divide a los datos en varios grupos. El objetivo es determinar si las diferencias observadas en las medias de los grupos son lo suficientemente grandes como para considerarse significativas o si son simplemente el resultado de variaciones aleatorias dentro de las muestras.
+
+El procedimiento ANOVA se basa en la comparación de la variabilidad entre los grupos (variabilidad causada por las diferencias entre los grupos) y la variabilidad dentro de los grupos (variabilidad causada por la variación aleatoria dentro de los grupos). Si la variabilidad entre los grupos es significativamente mayor que la variabilidad dentro de los grupos, se considera que existe una diferencia significativa entre al menos uno de los grupos.
+
+En resumen, la prueba ANOVA unidireccional se utiliza para responder preguntas como: "¿Hay alguna diferencia significativa entre las medias de tres o más grupos en una variable dependiente?", y es una herramienta importante en la investigación para comparar múltiples grupos simultáneamente y determinar si hay diferencias estadísticamente significativas entre ellos.
+
+```{r}
+# If .txt tab file, use this
+my_data <- read.delim(file.choose())
+# Or, if .csv file, use this
+my_data <- read.csv(file.choose())
+```
+
+```{r}
+my_data <- PlantGrowth
+```
+
+## Consulta tus datos
+
+```{r}
+# Show a random sample
+set.seed(1234)
+dplyr::sample_n(my_data, 10)
+```
+
+```{r}
+# Show the levels
+levels(my_data$group)
+```
+
+Calcule las estadísticas de resumen por grupos: conteo, media, sd:
+
+```{r}
+library(dplyr)
+group_by(my_data, group) %>%
+  summarise(
+    count = n(),
+    mean = mean(weight, na.rm = TRUE),
+    sd = sd(weight, na.rm = TRUE)
+  )
+
+```
+
+## Visualiza tus datos
+
+-   Para usar gráficos base R , lea esto: [Gráficos base R.](http://www.sthda.com/english/wiki/r-base-graphs)Aquí, usaremos el [paquete **ggpubr**](http://www.sthda.com/english/wiki/ggpubr-r-package-ggplot2-based-publication-ready-plots) R para una fácil visualización de datos basada en ggplot2.
+
+-   Instale la última versión de ggpubr desde GitHub de la siguiente manera (recomendado):
+
+```{r}
+# Install
+if(!require(devtools)) install.packages("devtools")
+devtools::install_github("kassambara/ggpubr")
+```
+
+-   Visualiza tus datos con ggpubr:
+
+```{r}
+# Box plots
+# ++++++++++++++++++++
+# Plot weight by group and color by group
+library("ggpubr")
+ggboxplot(my_data, x = "group", y = "weight", 
+          color = "group", palette = c("#00AFBB", "#E7B800", "#FC4E07"),
+          order = c("ctrl", "trt1", "trt2"),
+          ylab = "Weight", xlab = "Treatment")
+```
+
+```{r}
+# Mean plots
+# ++++++++++++++++++++
+# Plot weight by group
+# Add error bars: mean_se
+# (other values include: mean_sd, mean_ci, median_iqr, ....)
+library("ggpubr")
+ggline(my_data, x = "group", y = "weight", 
+       add = c("mean_se", "jitter"), 
+       order = c("ctrl", "trt1", "trt2"),
+       ylab = "Weight", xlab = "Treatment")
+```
+
+Si aún desea usar gráficos base R, escriba los siguientes scripts:
+
+
+
+```{r}
+# Box plot
+boxplot(weight ~ group, data = my_data,
+        xlab = "Treatment", ylab = "Weight",
+        frame = FALSE, col = c("#00AFBB", "#E7B800", "#FC4E07"))
+# plotmeans
+library("gplots")
+plotmeans(weight ~ group, data = my_data, frame = FALSE,
+          xlab = "Treatment", ylab = "Weight",
+          main="Mean Plot with 95% CI") 
+```
+
+## Calcule la prueba ANOVA unidireccional
+
+La función **summary.aov** () se utiliza para resumir el modelo de análisis de varianza.
+
+```{r}
+# Compute the analysis of variance
+res.aov <- aov(weight ~ group, data = my_data)
+# Summary of the analysis
+summary(res.aov)
+```
+
+**Interpretacion de los datos**
+
+el valor de p es menor que el nivel de significación 0,05, podemos concluir que existen diferencias significativas entre los grupos resaltados con "\*" en el resumen del modelo. **Tukey múltiples comparaciones por pares** La función **TukeyHD** () toma como argumento el ANOVA ajustado.
+
+```{r}
+TukeyHSD(res.aov)
+```
+
+-   **diff** : diferencia entre las medias de los dos grupos
+
+-   **lwr** , **upr** : el punto final inferior y superior del intervalo de confianza al 95 % (predeterminado)
+
+-   **p adj** : valor p después del ajuste para las comparaciones múltiples.
+
+**Múltiples comparaciones utilizando el paquete mulcomp**
+
+-   **modelo** : un modelo ajustado, por ejemplo, un objeto devuelto por **aov** ().
+
+**lincft** (): una especificación de las hipótesis lineales a probar. Las comparaciones múltiples en los modelos ANOVA se especifican mediante objetos devueltos por la función **mcp** ().
+
+
+
+-   **mvtnorm:** Este paquete proporciona funciones relacionadas con las distribuciones t y normales multivariadas.
+
+-   **survival**: este paquete se utiliza para el análisis de supervivencia y contiene funciones para analizar datos de tiempo hasta el evento.
+
+-   **TH.data:** Este paquete proporciona varios conjuntos de datos que a menudo se utilizan para la enseñanza y las demostraciones.
+
+-   **MASS:** Este paquete contiene funciones y conjuntos de datos para el modelado estadístico práctico.
+
+```{r}
+library(multcomp)
+```
+
+
+
+```{r}
+library(multcomp)
+summary(glht(res.aov, linfct = mcp(group = "Tukey")))
+```
+
+### Prueba t por pares
+
+La función **pairewise.t.test** () también se puede utilizar para calcular comparaciones por pares entre niveles de grupo con correcciones para pruebas múltiples.
+
+```{r}
+pairwise.t.test(my_data$weight, my_data$group,
+                 p.adjust.method = "BH")
+```
+
+El resultado es una tabla de valores p para las comparaciones por pares. Aquí, los valores p han sido ajustados por el método de Benjamini-Hochberg. **Comprobar la homogeneidad del supuesto de varianza**
+
+La **gráfica de residuos versus ajustes** se puede usar para verificar la homogeneidad de las varianzas.
+
+No hay relaciones evidentes entre los residuos y los valores ajustados (la media de cada grupo), lo cual es bueno. Entonces, podemos asumir la homogeneidad de las varianzas.
+
+```{r}
+# 1. Homogeneity of variances
+plot(res.aov, 1)
+```
+
+```{r}
+library(car)
+leveneTest(weight ~ group, data = my_data)
+```
+
+```{r}
+install.packages("carData")
+```
+
+El carDatapaquete proporciona varios conjuntos de datos que a menudo se usan en ejemplos y ejercicios relacionados con el carpaquete, que se usa para modelos de regresión lineales y no lineales. Cuando carga el carpaquete (que podría haber cargado anteriormente), también carga automáticamente el carDatapaquete para acceder a los conjuntos de datos proporcionados por carData.
+
+**Interpretacion** Del resultado anterior podemos ver que el valor p no es menor que el nivel de significancia de 0.05. Esto significa que no hay evidencia que sugiera que la varianza entre los grupos sea significativamente diferente desde el punto de vista estadístico. Por lo tanto, podemos asumir la homogeneidad de las varianzas en los diferentes grupos de tratamiento. **Relajación del supuesto de homogeneidad de la varianza**
+
+**n la función oneway.test** () se ha implementado un procedimiento alternativo (es decir: **prueba unidireccional de Welch** ), que no requiere esa suposición .
+
+-   **Prueba ANOVA sin suposición de varianzas iguales**
+
+```{r}
+oneway.test(weight ~ group, data = my_data)
+```
+
+-   **Pruebas t por pares sin suposición de varianzas iguales**
+
+```{r}
+pairwise.t.test(my_data$weight, my_data$group,
+                 p.adjust.method = "BH", pool.sd = FALSE)
+```
+
+### Comprobar el supuesto de normalidad
+
+**Gráfica de normalidad de residuos** . En el siguiente gráfico, los cuantiles de los residuos se representan frente a los cuantiles de la distribución normal. También se traza una línea de referencia de 45 grados.
+
+La gráfica de probabilidad normal de residuos se utiliza para comprobar la suposición de que los residuos se distribuyen normalmente. Debe seguir aproximadamente una línea recta.
+
+```{r}
+# 2. Normality
+plot(res.aov, 2)
+```
+
+La conclusión anterior está respaldada por la **prueba de Shapiro-Wilk** sobre los residuos de ANOVA (W = 0,96, p = 0,6) que no encuentra indicios de que se haya violado la normalidad.
+
+```{r}
+# Extract the residuals
+aov_residuals <- residuals(object = res.aov )
+# Run Shapiro-Wilk test
+shapiro.test(x = aov_residuals )
+```
+
+## Alternativa no paramétrica a la prueba ANOVA unidireccional
+
+```{r}
+kruskal.test(weight ~ group, data = my_data)
+```
+
+\
+
+```         
+
+
+```
+
+\
